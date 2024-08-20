@@ -26,4 +26,4 @@ const provider = new GoogleAuthProvider();
 const db = getDatabase(app)
 const analytics = getAnalytics(app);
 
-export { auth, provider, signInWithPopup, signOut, onAuthStateChanged, db, ref, set, get, child, update };
+export { auth, provider, analytics, signInWithPopup, signOut, onAuthStateChanged, db, ref, set, get, child, update };

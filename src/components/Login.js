@@ -4,7 +4,7 @@ import loginButton from '../assets/loginButton.svg'
 
 function Login() {
   const [userData, setUserData] = useState(null);
-  const [dbData, setDbData] = useState(null);
+  // const [dbData, setDbData] = useState(null);
 
   const handleSignIn = async () => {
     try {
@@ -24,23 +24,23 @@ function Login() {
     }
   };
 
-  const handleReadData = async () => {
-    const uid = userData?.uid;
-    if (uid) {
-      try {
-        const snapshot = await get(ref(db, 'users/' + uid));
-        if (snapshot.exists()) {
-          setDbData(snapshot.val());
-        } else {
-          console.log('No data available');
-        }
-      } catch (error) {
-        console.error('Error reading data from the database:', error.message);
-      }
-    } else {
-      console.error('UID is missing or invalid');
-    }
-  };
+  // const handleReadData = async () => {
+  //   const uid = userData?.uid;
+  //   if (uid) {
+  //     try {
+  //       const snapshot = await get(ref(db, 'users/' + uid));
+  //       if (snapshot.exists()) {
+  //         setDbData(snapshot.val());
+  //       } else {
+  //         console.log('No data available');
+  //       }
+  //     } catch (error) {
+  //       console.error('Error reading data from the database:', error.message);
+  //     }
+  //   } else {
+  //     console.error('UID is missing or invalid');
+  //   }
+  // };
 
   return (
     <div className="App">
