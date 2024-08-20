@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { auth, db, provider, ref, set, signInWithPopup, get } from '../firebase';
+import { auth, db, provider, ref, set, signInWithPopup} from '../firebase';
 import loginButton from '../assets/loginButton.svg'
 
 function Login() {
