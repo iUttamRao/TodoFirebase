@@ -1,11 +1,10 @@
 import React from 'react'
-// import Login from './components/Login'
-import Todo from './components/Todo'
+import { RouterProvider } from 'react-router-dom'
+import { router } from './routing/router'
 
 const App = () => {
   return (
-    // <Login />
-    <Todo />
+    <RouterProvider router={router} />
   )
 }
 

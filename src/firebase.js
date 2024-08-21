@@ -2,7 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
-import { getDatabase, ref, set, get, child, update } from "firebase/database"
+import { getDatabase, ref, set, get, child, update, onValue } from "firebase/database"
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -26,4 +26,4 @@ const provider = new GoogleAuthProvider();
 const db = getDatabase(app)
 const analytics = getAnalytics(app);
 
-export { auth, provider, analytics, signInWithPopup, signOut, onAuthStateChanged, db, ref, set, get, child, update };
+export { auth, provider, analytics, signInWithPopup, signOut, onAuthStateChanged, db, ref, set, get, child, update, onValue };

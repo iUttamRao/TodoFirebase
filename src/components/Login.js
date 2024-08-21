@@ -1,47 +1,41 @@
-import { useState } from 'react';
 import { auth, db, provider, ref, set, signInWithPopup} from '../firebase';
 import loginButton from '../assets/loginButton.svg'
+import { useNavigate } from 'react-router-dom';
+import { TODO } from '../routing/keys';
+import { useEffect } from 'react';
+import { checkTokenExpiration } from '../routing/router';
 
 function Login() {
-  const [userData, setUserData] = useState(null);
-  // const [dbData, setDbData] = useState(null);
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const isExpired = checkTokenExpiration();
+    if (isExpired) {
+      navigate(TODO);
+    }
+// eslint-disable-next-line
+  }, []); 
 
   const handleSignIn = async () => {
     try {
       const res = await signInWithPopup(auth, provider);
-      // User signed in successfully
-      setUserData(res.user);
+      console.log(res)
+      localStorage.setItem("accessToken", res.user.accessToken)
+      localStorage.setItem("userId",res.user.uid)
       const uid = res.user.uid;
       if (uid) {
         await set(ref(db, 'users/' + uid), {
           name: res.user.displayName,
           email: res.user.email,
+          photoURL: res.user.photoURL
         });
       }
-      
+      navigate(TODO)
     } catch (error) {
       console.error('Error signing in with Google:', error.message);
     }
   };
-
-  // const handleReadData = async () => {
-  //   const uid = userData?.uid;
-  //   if (uid) {
-  //     try {
-  //       const snapshot = await get(ref(db, 'users/' + uid));
-  //       if (snapshot.exists()) {
-  //         setDbData(snapshot.val());
-  //       } else {
-  //         console.log('No data available');
-  //       }
-  //     } catch (error) {
-  //       console.error('Error reading data from the database:', error.message);
-  //     }
-  //   } else {
-  //     console.error('UID is missing or invalid');
-  //   }
-  // };
-
+  
   return (
     <div className="App">
       <h1 style={{textAlign:'center', marginTop : '50px'}}>Todo with Authentication(Firebase)</h1>
@@ -50,19 +44,6 @@ function Login() {
           <img src={loginButton} alt="button" width={300} />
         </button>
       </div>
-
-      {/* <button onClick={handleSignIn}>
-        Continue with Google
-      </button> */}
-      {/* <button onClick={handleData}>Send Data to Database</button>
-      <button onClick={handleReadData}>Read Data from Database</button> */}
-      {userData && (
-        <div>
-          <h2>Data from Database:</h2>
-          <p>Name: {userData.displayName}</p>
-          <p>Email: {userData.email}</p>
-        </div>
-      )}
     </div>
   );
 }
